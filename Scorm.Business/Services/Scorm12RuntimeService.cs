@@ -47,7 +47,13 @@ namespace Scorm.Business.Services
                 }
                 else
                 {
-
+                    var newRow = new Entities.ScormRuntimeData
+                    {
+                        AttemptId = attemptId,
+                        Element = keyValuePair.Key,
+                        Value = keyValuePair.Value,
+                        UpdatedAt = now
+                    };
                 }
             }
 
