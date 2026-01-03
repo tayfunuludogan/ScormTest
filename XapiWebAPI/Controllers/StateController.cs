@@ -9,7 +9,7 @@ using System.Runtime.Intrinsics.X86;
 using WebAPI.Services;
 
 
-namespace XapiWebAPI.Controllers
+namespace WebAPI.Controllers
 {
 
 
