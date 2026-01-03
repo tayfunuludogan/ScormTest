@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.Repositories.Abstract
+namespace Scorm.Repositories.Abstract
 {
     public interface IContentRepository
     {

@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Scorm.Business.Adapters;
 using Scorm.Business.Adapters.Abstract;
-using Scorm.Business.Repositories;
-using Scorm.Business.Repositories.Abstract;
 using Scorm.Business.Services;
 using Scorm.Business.Services.Abstract;
 using Scorm.Business.Utilities.Settings;
 using Scorm.Entities;
+using Scorm.Repositories;
+using Scorm.Repositories.Abstract;
 using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);

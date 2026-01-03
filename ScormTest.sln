@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorm.Entities", "Scorm.Ent
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorm.Business", "Scorm.Business\Scorm.Business.csproj", "{2AF53021-34E0-47CD-BB1F-813521592FC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorm.Repositories", "Scorm.Repositories\Scorm.Repositories.csproj", "{B26058C9-97C2-428A-A99C-8326DF43919E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2AF53021-34E0-47CD-BB1F-813521592FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF53021-34E0-47CD-BB1F-813521592FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF53021-34E0-47CD-BB1F-813521592FC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26058C9-97C2-428A-A99C-8326DF43919E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26058C9-97C2-428A-A99C-8326DF43919E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26058C9-97C2-428A-A99C-8326DF43919E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26058C9-97C2-428A-A99C-8326DF43919E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
-﻿using Scorm.Business.Repositories;
-using Scorm.Business.Repositories.Abstract;
+﻿
 using Scorm.Business.Services.Abstract;
 using Scorm.Business.Utilities.Results;
+using Scorm.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;

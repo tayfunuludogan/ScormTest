@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Scorm.Business.Repositories.Abstract;
 using Scorm.Entities;
+using Scorm.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.Repositories
+namespace Scorm.Repositories
 {
     public class ContentRepository : IContentRepository
     {

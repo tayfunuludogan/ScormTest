@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Scorm.Business.DTOs;
-using Scorm.Business.Repositories.Abstract;
 using Scorm.Entities;
+using Scorm.Repositories.Abstract;
+using Scorm.Repositories.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.Repositories
+namespace Scorm.Repositories
 {
     //Sonradan usercontext ile requestten bilgileri alan bir yapı yapılacak.
     public class UserRepository : IUserRepository

@@ -1,7 +1,7 @@
 ﻿using Scorm.Business.Adapters.Abstract;
-using Scorm.Business.DTOs;
 using Scorm.Entities;
 using Scorm.Entities.Enums;
+using Scorm.Repositories.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;

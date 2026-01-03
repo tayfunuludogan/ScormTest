@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.DTOs
+namespace Scorm.Repositories.Dtos
 {
     public class ContentPackageDto
     {

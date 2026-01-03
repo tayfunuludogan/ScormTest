@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using Scorm.Business.Security;
 using System.Buffers.Text;
 using System.Drawing;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.Intrinsics.X86;
-using XapiWebAPI.Security;
-using XapiWebAPI.Services;
+using WebAPI.Services;
+
 
 namespace XapiWebAPI.Controllers
 {

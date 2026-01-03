@@ -1,4 +1,4 @@
-﻿using Scorm.Business.DTOs;
+﻿using Scorm.Repositories.Dtos;
 using Scorm.Business.Utilities.Results;
 using Scorm.Entities;
 using System;

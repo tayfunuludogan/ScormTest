@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Hosting;
+using System;
+using WebAPI.Services;
+using Scorm.Business.Security;
 
 namespace WebAPI.Controllers
 {
-    using Microsoft.AspNetCore.Http.HttpResults;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Hosting;
-    using System;
-    using WebAPI.Security;
-    using WebAPI.Services;
+
 
     [ApiController]
     [Route("xapi/statements")]

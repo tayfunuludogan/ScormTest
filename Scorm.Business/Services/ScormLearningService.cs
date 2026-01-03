@@ -1,7 +1,6 @@
 ﻿using Scorm.Business.Adapters.Abstract;
-using Scorm.Business.DTOs;
-using Scorm.Business.Repositories;
-using Scorm.Business.Repositories.Abstract;
+using Scorm.Repositories.Dtos;
+using Scorm.Repositories.Abstract;
 using Scorm.Business.Services.Abstract;
 using Scorm.Business.Utilities.Results;
 using System;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Scorm.Business.Services
 {

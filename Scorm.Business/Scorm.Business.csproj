@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Scorm.Entities\Scorm.Entities.csproj" />
+    <ProjectReference Include="..\Scorm.Repositories\Scorm.Repositories.csproj" />
   </ItemGroup>
 
   <ItemGroup>

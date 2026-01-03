@@ -1,13 +1,13 @@
 ﻿using Scorm.Business.Adapters.Abstract;
-using Scorm.Business.DTOs;
+using Scorm.Business.Security;
 using Scorm.Entities;
 using Scorm.Entities.Enums;
+using Scorm.Repositories.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebAPI.Security;
 
 namespace Scorm.Business.Adapters
 {

@@ -2,7 +2,7 @@
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace WebAPI.Security
+namespace Scorm.Business.Security
 {
     public static class BasicAuthHandler
     {
