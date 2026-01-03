@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36717.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "XapiWebAPI\WebAPI.csproj", "{329F2B36-B998-4495-8759-AD8966F75755}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{329F2B36-B998-4495-8759-AD8966F75755}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scorm.Entities", "Scorm.Entities\Scorm.Entities.csproj", "{0FA82BF3-E788-4F1E-998F-F2D4AEE01E1C}"
 EndProject
