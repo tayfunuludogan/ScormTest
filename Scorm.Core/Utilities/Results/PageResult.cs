@@ -1,11 +1,10 @@
-﻿using Azure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.Utilities.Results
+namespace Scorm.Core.Utilities.Results
 {
 	public class PageResult<T> :DataResult<T> where T : class,new()
 	{

@@ -83,7 +83,6 @@ namespace Scorm.Repositories
             var existings = await _context.ScormRuntimeData.Where(x => x.AttemptId == attemptId && keys.Contains(x.Element)).ToListAsync();
             return existings;
         }
-
         public async Task<ScormRuntimeData> AddScormRuntimeData(ScormRuntimeData scormRuntimeData, bool isSave = true)
         {
             _context.ScormRuntimeData.Add(scormRuntimeData);
@@ -92,5 +91,13 @@ namespace Scorm.Repositories
 
             return scormRuntimeData;
         }
+
+
+        public async Task<ContentAttemptScormSummary> GetAttemptSummary(Guid attemptId)
+        {
+            throw new NotImplementedException();
+         //   var summary = _context.AttemptScormSummaries
+        }
+
     }
 }

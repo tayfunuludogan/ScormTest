@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scorm.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Entities
 {
-    public class User
+    public class User : IEntity
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

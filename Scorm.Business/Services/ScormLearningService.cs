@@ -2,7 +2,7 @@
 using Scorm.Repositories.Dtos;
 using Scorm.Repositories.Abstract;
 using Scorm.Business.Services.Abstract;
-using Scorm.Business.Utilities.Results;
+using Scorm.Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;

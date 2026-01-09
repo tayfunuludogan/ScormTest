@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Scorm.Business.Utilities.Settings
+namespace Scorm.Core.Utilities.Settings
 {
     public class AuthSettings
     {

@@ -3,7 +3,7 @@ using Scorm.Business.Adapters;
 using Scorm.Business.Adapters.Abstract;
 using Scorm.Business.Services;
 using Scorm.Business.Services.Abstract;
-using Scorm.Business.Utilities.Settings;
+using Scorm.Core.Utilities.Settings;
 using Scorm.Entities;
 using Scorm.Repositories;
 using Scorm.Repositories.Abstract;

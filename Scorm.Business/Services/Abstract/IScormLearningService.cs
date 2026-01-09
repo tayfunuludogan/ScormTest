@@ -1,5 +1,5 @@
 ﻿using Scorm.Repositories.Dtos;
-using Scorm.Business.Utilities.Results;
+using Scorm.Core.Utilities.Results;
 using Scorm.Entities;
 using System;
 using System.Collections.Generic;

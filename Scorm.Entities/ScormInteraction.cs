@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scorm.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Entities
 {
-    public class ScormInteraction
+    public class ScormInteraction : IEntity
     {
         public long Id { get; set; }
         public Guid AttemptId { get; set; }

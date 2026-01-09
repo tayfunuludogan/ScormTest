@@ -1,12 +1,14 @@
 ﻿
 using Scorm.Business.Services.Abstract;
-using Scorm.Business.Utilities.Results;
+using Scorm.Core.Utilities.Results;
+using Scorm.Entities;
 using Scorm.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Scorm.Business.Services
 {
@@ -32,6 +34,7 @@ namespace Scorm.Business.Services
                 return new ErrorDataResult<bool>("Oturum bulunamadı.");
 
 
+            //1) ScormRuntimeData upsert(AttemptId, Element) unique
             var keys = data.Keys.ToList();
 
             var existings = await _contentrepository.GetExistingScormRuntimeData(attemptId, keys);
@@ -56,6 +59,12 @@ namespace Scorm.Business.Services
                     };
                 }
             }
+
+
+            // 2) AttemptScormSummary upsert (AttemptId PK)
+
+
+
 
             return new SuccessDataResult<bool>(true);
         }

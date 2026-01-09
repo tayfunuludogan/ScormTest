@@ -1,4 +1,5 @@
-﻿using Scorm.Entities.Enums;
+﻿using Scorm.Core.Entities;
+using Scorm.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Entities
 {
-    public class ContentAttempt
+    public class ContentAttempt : IEntity
     {
 
         public Guid Id { get; set; }

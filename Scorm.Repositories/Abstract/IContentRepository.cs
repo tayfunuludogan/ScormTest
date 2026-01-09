@@ -22,5 +22,11 @@ namespace Scorm.Repositories.Abstract
         Task<List<ScormRuntimeData>> GetExistingScormRuntimeData(Guid attemptId, List<string> keys);
         Task<ScormRuntimeData> AddScormRuntimeData(ScormRuntimeData scormRuntimeData,bool isSave = true);
 
+
+        Task<ContentAttemptScormSummary> GetAttemptSummary(Guid attemptId);
+
+
+
+
     }
 }

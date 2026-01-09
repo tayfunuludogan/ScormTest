@@ -7,12 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Scorm.Core\Scorm.Core.csproj" />
     <ProjectReference Include="..\Scorm.Entities\Scorm.Entities.csproj" />
     <ProjectReference Include="..\Scorm.Repositories\Scorm.Repositories.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Utilities\Results\" />
   </ItemGroup>
 
   <ItemGroup>

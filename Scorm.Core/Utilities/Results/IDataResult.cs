@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Scorm.Business.Utilities.Results
+namespace Scorm.Core.Utilities.Results
 {
     public interface IDataResult<out T>:IResult
     {
