@@ -34,14 +34,17 @@ builder.Services.AddCors(o =>
 builder.Services.AddSingleton<StatementStore>();
 builder.Services.AddSingleton<StateStore>();
 
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped<IContentRepository, ContentRepository>();
+
+builder.Services.AddRepositoryServices(builder.Configuration);
 
 
 builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm12RuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm2004RuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapter, XapiRuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapterFactory, LearningRuntimeAdapterFactory>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IContentRepository, ContentRepository>();
+
 builder.Services.AddScoped<IScormLearningService, ScormLearningService>();
 
 

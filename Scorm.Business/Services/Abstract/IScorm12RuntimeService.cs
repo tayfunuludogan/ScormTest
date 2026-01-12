@@ -1,4 +1,5 @@
 ﻿using Scorm.Core.Utilities.Results;
+using Scorm.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Scorm.Business.Services.Abstract
 {
     public interface IScorm12RuntimeService
     {
-        Task<IDataResult<bool>> HandleCommitAsync(Guid attemptId, Dictionary<string,string> data); 
+        ContentStandard Standard { get; }
+        Task<IResult> HandleCommitAsync(Guid attemptId, Dictionary<string,string> data);
+        Task<IDataResult<Dictionary<string, string>>> GetStateAsync(Guid attemptId);
     }
 }

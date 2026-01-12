@@ -15,14 +15,16 @@ namespace Scorm.Business.Services
     public class ScormLearningService : IScormLearningService
     {
         private readonly IUserRepository _userRepository;
-        private readonly IContentRepository _contentRepository;
+        private readonly IContentAttemptRepository _contentAttemptRepository;
+        private readonly IContentPackageRepository _contentPackageRepository;
         private readonly ILearningRuntimeAdapterFactory _adapterFactory;
         public ScormLearningService(
             IUserRepository userRepository,
-            IContentRepository contentRepository,
+            IContentAttemptRepository contentAttemptRepository,
+            IContentPackageRepository contentPackageRepository,
             ILearningRuntimeAdapterFactory adapterFactory)
         {
-            _contentRepository = contentRepository;
+            _contentPackageRepository = contentPackageRepository;
             _userRepository = userRepository;
             _adapterFactory = adapterFactory;
         }
@@ -32,8 +34,8 @@ namespace Scorm.Business.Services
             try
             {
                 var user = await _userRepository.GetCurrentUserAsync();
-                var package = await _contentRepository.GetPackageAsync(packageId);
-                var attempt = await _contentRepository.CreateOrReuseAttemptAsync(packageId, user.Id);
+                var package = await _contentPackageRepository.GetAsync(x => x.Id == packageId);
+                var attempt = await _contentAttemptRepository.CreateOrReuseAttemptAsync(packageId,user.Id);
                 var adapter = _adapterFactory.GetAdapter(package.Standard); // Burada hangi scorm paketine göre çalışacak adapter i buluyoruz.
                 var launchContext = adapter.BuildLaunchContext(package, attempt, user);
                 return new SuccessDataResult<LaunchContext>(launchContext);
@@ -48,11 +50,11 @@ namespace Scorm.Business.Services
             try
             {
                 var data = new List<ContentPackageDto>();
-
-                var packeges = await _contentRepository.GetPackagesAsync();
-                if (packeges != null && packeges.Count > 0)
+                var packeges = await _contentPackageRepository.GetListAsync(null, x => x.OrderBy(y => y.Standard), null, 0);
+                
+                if (packeges.Count > 0)
                 {
-                    data.AddRange(packeges.Select(x => new ContentPackageDto
+                    data.AddRange(packeges.Items.Select(x => new ContentPackageDto
                     {
                         Id = x.Id,
                         Standard = x.Standard,
