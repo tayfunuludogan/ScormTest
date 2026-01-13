@@ -25,8 +25,9 @@ namespace Scorm.Business.Adapters
                 {
                     ["attemptId"] = attempt.Id,
                     ["userId"] = user.Id,
-                    ["standard"] = "scorm12"
-                }
+                    ["standard"] = "scorm12",
+                    ["serviceUrl"]= "https://localhost:7269/"
+				}
             };
 
             return ctx;
