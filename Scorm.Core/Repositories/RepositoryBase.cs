@@ -56,7 +56,7 @@ namespace Scorm.Core.Repositories
             Expression<Func<TEntity, bool>>? predicate = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-            int index = 0, int size = 10, bool enableTracking = true)
+            int index = 0, int size = 100, bool enableTracking = true)
         {
             IQueryable<TEntity> queryable = Query();
             if (!enableTracking) queryable = queryable.AsNoTracking();
@@ -97,7 +97,7 @@ namespace Scorm.Core.Repositories
             Expression<Func<TEntity, bool>>? predicate = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null,
-            int index = 0, int size = 10, bool enableTracking = true, CancellationToken cancellationToken = default)
+            int index = 0, int size = 100, bool enableTracking = true, CancellationToken cancellationToken = default)
         {
             IQueryable<TEntity> queryable = Query();
             if (!enableTracking) queryable = queryable.AsNoTracking();

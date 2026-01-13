@@ -10,6 +10,7 @@ namespace Scorm.Repositories.Abstract
 {
     public interface IScormRuntimeDataRepository: IAsyncEntityRepository<ScormRuntimeData>, IEntityRepository<ScormRuntimeData>
     {
+        Task<Dictionary<string, string>> GetRuntimeDataAsRowByAttemptId(Guid attemptId);
 
     }
 }

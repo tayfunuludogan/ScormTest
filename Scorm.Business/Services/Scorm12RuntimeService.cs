@@ -123,7 +123,6 @@ namespace Scorm.Business.Services
             }
         }
 
-
         private static AttemptStatus? MapScorm12Status(string? lessonStatus)
         {
             if (string.IsNullOrWhiteSpace(lessonStatus)) return null;
@@ -143,10 +142,27 @@ namespace Scorm.Business.Services
             }
         }
 
-        public Task<IDataResult<Dictionary<string, string>>> GetStateAsync(Guid attemptId)
+        public async Task<IDataResult<Dictionary<string, string>>> GetStateAsync(Guid attemptId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _userRepository.GetCurrentUserAsync();
+                var attempt = await _contentAttemptRepository.GetAsync(x => x.Id == attemptId && x.UserId == user.Id);
+                if (attempt == null)
+                    return new ErrorDataResult<Dictionary<string, string>>("Oturum bulunamadı.");
+
+                var dataRows = await _scormRuntimeDataRepository.GetRuntimeDataAsRowByAttemptId(attemptId);
+
+                return new SuccessDataResult<Dictionary<string, string>>(dataRows);
+            }
+            catch (Exception ex)
+            {
+                return new ErrorDataResult<Dictionary<string, string>>(ex.Message);
+            }
+
         }
+
+
     }
 
 }

@@ -18,15 +18,21 @@ namespace WebAPI.Controllers
         [HttpPost("commit/{attemptId:guid}")]
         public async Task<IActionResult> Commit(Guid attemptId, [FromBody] Dictionary<string, string> data)
         {
-            await _runtime.HandleCommitAsync(attemptId, data);
-            return Ok();
+            var result = await _runtime.HandleCommitAsync(attemptId, data);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result);
         }
 
         [HttpGet("state/{attemptId:guid}")]
         public async Task<ActionResult<Dictionary<string, string>>> GetState(Guid attemptId)
         {
-            var state = await _runtime.GetStateAsync(attemptId);
-            return Ok(state);
+            var result = await _runtime.GetStateAsync(attemptId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result);
         }
 
     }

@@ -16,7 +16,7 @@ namespace Scorm.Core.Repositories
         IPaginate<T> GetList(Expression<Func<T, bool>>? predicate = null,
                      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                      Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                     int index = 0, int size = 10,
+                     int index = 0, int size = 100,
                      bool enableTracking = true);
         T Add(T entity);
         T Update(T entity);
