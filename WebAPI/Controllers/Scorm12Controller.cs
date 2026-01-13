@@ -18,7 +18,6 @@ namespace WebAPI.Controllers
         [HttpPost("commit/{attemptId:guid}")]
         public async Task<IActionResult> Commit(Guid attemptId, [FromBody] Dictionary<string, string> data)
         {
-            var a = 12;
             var result = await _runtime.HandleCommitAsync(attemptId, data);
             if (!result.Success)
                 return BadRequest(result.Message);
