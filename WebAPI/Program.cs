@@ -44,7 +44,6 @@ builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm12RuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm2004RuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapter, XapiRuntimeAdapter>();
 builder.Services.AddScoped<ILearningRuntimeAdapterFactory, LearningRuntimeAdapterFactory>();
-
 builder.Services.AddScoped<IScormLearningService, ScormLearningService>();
 
 

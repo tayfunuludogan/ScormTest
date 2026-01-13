@@ -25,6 +25,7 @@ namespace Scorm.Business.Services
             ILearningRuntimeAdapterFactory adapterFactory)
         {
             _contentPackageRepository = contentPackageRepository;
+            _contentAttemptRepository = contentAttemptRepository;
             _userRepository = userRepository;
             _adapterFactory = adapterFactory;
         }
