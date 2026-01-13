@@ -16,7 +16,7 @@ namespace Scorm.Repositories
         public static IServiceCollection AddRepositoryServices(this IServiceCollection services,
                                                         IConfiguration configuration)
         {
-            //services.AddDbContext<LRSContext>(options =>options.UseSqlServer(configuration.GetConnectionString("LRSDataBase")));
+            services.AddDbContext<LRSContext>(options =>options.UseSqlServer(configuration.GetConnectionString("LRSDataBase")));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContentPackageRepository, ContentPackageRepository>();
             services.AddScoped<IContentAttemptRepository, ContentAttemptRepository>();

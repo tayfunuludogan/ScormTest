@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Scorm.Business.Adapters;
 using Scorm.Business.Adapters.Abstract;
+using Scorm.Business.Extensions;
 using Scorm.Business.Services;
 using Scorm.Business.Services.Abstract;
 using Scorm.Core.Utilities.Settings;
@@ -11,10 +12,10 @@ using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<LRSContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LRSDataBase"));
-});
+//builder.Services.AddDbContext<LRSContext>(options =>
+//{
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("LRSDataBase"));
+//});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -30,25 +31,23 @@ builder.Services.AddCors(o =>
         .AllowAnyMethod());
 });
 
+
+
+
+
+builder.Services.AddRepositoryServices(builder.Configuration);
+builder.Services.AddBusinessServices();
+builder.Services.Configure<AuthSettings>(
+    builder.Configuration.GetSection("XApiAuth"));
+
 // In-memory store (test amaçlý)
 builder.Services.AddSingleton<StatementStore>();
 builder.Services.AddSingleton<StateStore>();
 
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IContentRepository, ContentRepository>();
-
-builder.Services.AddRepositoryServices(builder.Configuration);
 
 
-builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm12RuntimeAdapter>();
-builder.Services.AddScoped<ILearningRuntimeAdapter, Scorm2004RuntimeAdapter>();
-builder.Services.AddScoped<ILearningRuntimeAdapter, XapiRuntimeAdapter>();
-builder.Services.AddScoped<ILearningRuntimeAdapterFactory, LearningRuntimeAdapterFactory>();
-builder.Services.AddScoped<IScormLearningService, ScormLearningService>();
 
 
-builder.Services.Configure<AuthSettings>(
-    builder.Configuration.GetSection("XApiAuth"));
 
 var app = builder.Build();
 
