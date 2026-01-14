@@ -46,7 +46,7 @@ namespace Scorm.Business.Services
 
                 var attempt = await _contentAttemptRepository.GetAsync(x => x.Id == attemptId && x.UserId == user.Id && x.Standard == this.Standard);
                 if (attempt == null)
-                    return new ErrorDataResult<bool>("Oturum bulunamadı.");
+                    return new ErrorResult("Oturum bulunamadı.");
 
 
                 //1) ScormRuntimeData upsert(AttemptId, Element) unique

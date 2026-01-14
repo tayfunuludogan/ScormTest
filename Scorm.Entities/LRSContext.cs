@@ -22,8 +22,8 @@ namespace Scorm.Entities
         public DbSet<ContentAttempt> ContentAttempts => Set<ContentAttempt>();
 
         // Summaries
-        public DbSet<ContentAttemptScormSummary> AttemptScormSummaries => Set<ContentAttemptScormSummary>();
-        public DbSet<ContentAttemptXapiSummary> AttemptXapiSummaries => Set<ContentAttemptXapiSummary>();
+        public DbSet<ContentAttemptScormSummary> ContentAttemptScormSummary => Set<ContentAttemptScormSummary>();
+        public DbSet<ContentAttemptXapiSummary> ContentAttemptXapiSummary => Set<ContentAttemptXapiSummary>();
 
         // SCORM detail tables
         public DbSet<ScormRuntimeData> ScormRuntimeData => Set<ScormRuntimeData>();
@@ -102,7 +102,7 @@ namespace Scorm.Entities
             // =========================
             modelBuilder.Entity<ContentAttemptScormSummary>(e =>
             {
-                e.ToTable("AttemptScormSummary");
+                e.ToTable("ContentAttemptScormSummary");
                 e.HasKey(x => x.AttemptId);
 
                 e.Property(x => x.RawLessonStatus).HasMaxLength(50);
@@ -127,7 +127,7 @@ namespace Scorm.Entities
             // =========================
             modelBuilder.Entity<ContentAttemptXapiSummary>(e =>
             {
-                e.ToTable("AttemptXapiSummary");
+                e.ToTable("ContentAttemptXapiSummary");
                 e.HasKey(x => x.AttemptId);
 
                 e.Property(x => x.ActorMbox).HasMaxLength(255);
