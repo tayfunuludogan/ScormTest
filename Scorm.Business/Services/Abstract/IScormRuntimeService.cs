@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Business.Services.Abstract
 {
-    public interface IScorm12RuntimeService
+    public interface IScormRuntimeService
     {
         ContentStandard Standard { get; }
         Task<IResult> HandleCommitAsync(Guid attemptId, Dictionary<string,string> data);

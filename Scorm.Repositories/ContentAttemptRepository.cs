@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Scorm.Core.Repositories;
 using Scorm.Entities;
+using Scorm.Entities.Enums;
 using Scorm.Repositories.Abstract;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,8 @@ namespace Scorm.Repositories
 
             return newAttempt;
         }
+
+
     }
 
 

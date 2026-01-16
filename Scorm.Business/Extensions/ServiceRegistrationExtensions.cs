@@ -21,8 +21,12 @@ namespace Scorm.Business.Extensions
             services.AddScoped<ILearningRuntimeAdapter, Scorm2004RuntimeAdapter>();
             services.AddScoped<ILearningRuntimeAdapter, XapiRuntimeAdapter>();
             services.AddScoped<ILearningRuntimeAdapterFactory, LearningRuntimeAdapterFactory>();
+            
+            services.AddScoped<IScormRuntimeService, Scorm12RuntimeService>();
+            services.AddScoped<IScormRuntimeService, Scorm2004RuntimeService>();
+            services.AddScoped<IScormRuntimeServiceFactory, ScormRuntimeServiceFactory>();
+
             services.AddScoped<IScormLearningService, ScormLearningService>();
-            services.AddScoped<IScorm12RuntimeService, Scorm12RuntimeService>();
 
             return services;
         }

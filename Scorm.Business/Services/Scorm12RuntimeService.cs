@@ -14,7 +14,7 @@ using System.Xml.Linq;
 
 namespace Scorm.Business.Services
 {
-    public class Scorm12RuntimeService : IScorm12RuntimeService
+    public class Scorm12RuntimeService : IScormRuntimeService
     {
         public ContentStandard Standard => ContentStandard.Scorm12;
 
@@ -75,7 +75,6 @@ namespace Scorm.Business.Services
                     }
                 }
 
-
                 // 2) AttemptScormSummary upsert (AttemptId PK)
                 var summary = await _contentAttemptScormSummaryRepository.GetAsync(x => x.AttemptId == attemptId);
                 if (summary == null)
@@ -109,36 +108,37 @@ namespace Scorm.Business.Services
                 if (summary.ScoreRaw.HasValue)
                     attempt.Score = summary.ScoreRaw;
 
-
+                // ====== Attempt lifecycle (EKLENDI) ======
                 // status map (SCORM 1.2)
                 var mappedStatus = MapScorm12Status(lessonStatus);
 
+                if (mappedStatus.HasValue)
+                {
+                    attempt.Status = mappedStatus.Value;
+                }
+
+                // her commit'te aktivite zamanı güncelle
+                attempt.LastActivityAt = now;
+
+                // sonuçlanan statülerde bitiş zamanı set et
+                if (attempt.Status == AttemptStatus.Completed ||
+                    attempt.Status == AttemptStatus.Passed ||
+                    attempt.Status == AttemptStatus.Failed ||
+                    attempt.Status == AttemptStatus.Abandoned)
+                {
+                    attempt.FinishedAt = attempt.FinishedAt ?? now;
+                }
+                // ====== Attempt lifecycle (EKLENDI) ======
+
+
                 _contentAttemptScormSummaryRepository.Update(summary);
+                _contentAttemptRepository.Update(attempt);
 
                 return new SuccessResult();
             }
             catch (Exception ex)
             {
                 return new ErrorResult(ex.Message);
-            }
-        }
-
-        private static AttemptStatus? MapScorm12Status(string? lessonStatus)
-        {
-            if (string.IsNullOrWhiteSpace(lessonStatus)) return null;
-
-            switch (lessonStatus.Trim().ToLowerInvariant())
-            {
-                case "completed": return AttemptStatus.Completed;
-                case "passed": return AttemptStatus.Passed;
-                case "failed": return AttemptStatus.Failed;
-                case "abandoned": return AttemptStatus.Abandoned; // bazı içerikler set edebilir
-                case "incomplete":
-                case "browsed":
-                case "not attempted":
-                    return AttemptStatus.InProgress;
-                default:
-                    return AttemptStatus.InProgress;
             }
         }
 
@@ -162,7 +162,24 @@ namespace Scorm.Business.Services
 
         }
 
+        private static AttemptStatus? MapScorm12Status(string? lessonStatus)
+        {
+            if (string.IsNullOrWhiteSpace(lessonStatus)) return null;
 
+            switch (lessonStatus.Trim().ToLowerInvariant())
+            {
+                case "completed": return AttemptStatus.Completed;
+                case "passed": return AttemptStatus.Passed;
+                case "failed": return AttemptStatus.Failed;
+                case "abandoned": return AttemptStatus.Abandoned; // bazı içerikler set edebilir
+                case "incomplete":
+                case "browsed":
+                case "not attempted":
+                    return AttemptStatus.InProgress;
+                default:
+                    return AttemptStatus.InProgress;
+            }
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using Scorm.Core.Repositories;
 using Scorm.Entities;
+using Scorm.Entities.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

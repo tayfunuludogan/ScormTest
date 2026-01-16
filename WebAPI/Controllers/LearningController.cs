@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 using Scorm.Business.Services.Abstract;
 
 namespace WebAPI.Controllers
@@ -39,6 +40,27 @@ namespace WebAPI.Controllers
         }
 
 
-        
+        [HttpPost("scorm/commit/{attemptId:guid}")]
+        public async Task<IActionResult> Commit(Guid attemptId, [FromBody] Dictionary<string, string> data)
+        {
+            var result = await _scormLearningService.HandleCommitAsync(attemptId, data);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        [HttpGet("scorm/state/{attemptId:guid}")]
+        public async Task<ActionResult<Dictionary<string, string>>> GetState(Guid attemptId)
+        {
+            var result = await _scormLearningService.GetStateAsync(attemptId);
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+
+
     }
 }

@@ -9,8 +9,8 @@ namespace WebAPI.Controllers
     [ApiController]
     public class Scorm12Controller : ControllerBase
     {
-        IScorm12RuntimeService _runtime;
-        public Scorm12Controller(IScorm12RuntimeService runtime)
+        IScormRuntimeService _runtime;
+        public Scorm12Controller(IScormRuntimeService runtime)
         {
             _runtime = runtime;
         }

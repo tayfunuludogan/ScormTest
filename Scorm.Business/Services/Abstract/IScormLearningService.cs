@@ -13,5 +13,7 @@ namespace Scorm.Business.Services.Abstract
     {
         Task<IDataResult<List<ContentPackageDto>>> GetPackages();
         Task<IDataResult<LaunchContext>> BuildLaunchContext(Guid packageId);
+        Task<IResult> HandleCommitAsync(Guid attemptId, Dictionary<string, string> data);
+        Task<IDataResult<Dictionary<string, string>>> GetStateAsync(Guid attemptId);
     }
 }
