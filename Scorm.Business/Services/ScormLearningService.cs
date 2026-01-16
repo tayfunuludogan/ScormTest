@@ -26,13 +26,13 @@ namespace Scorm.Business.Services
             IContentAttemptRepository contentAttemptRepository,
             IContentPackageRepository contentPackageRepository,
             ILearningRuntimeAdapterFactory adapterFactory,
-            IScormRuntimeServiceFactory _runtimeServiceFactory)
+            IScormRuntimeServiceFactory runtimeServiceFactory)
         {
             _contentPackageRepository = contentPackageRepository;
             _contentAttemptRepository = contentAttemptRepository;
             _userRepository = userRepository;
             _adapterFactory = adapterFactory;
-            _runtimeServiceFactory = _runtimeServiceFactory;
+            _runtimeServiceFactory = runtimeServiceFactory;
         }
 
         public async Task<IDataResult<List<ContentPackageDto>>> GetPackages()
