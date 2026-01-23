@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Repositories
 {
-    public class ContentAttemptRepository:RepositoryBase<ContentAttempt,LRSContext>, IContentAttemptRepository
+    public class ContentAttemptRepository : RepositoryBase<ContentAttempt, LRSContext>, IContentAttemptRepository
     {
         IContentPackageRepository _contentPackageRepository;
         public ContentAttemptRepository(LRSContext context,
@@ -30,9 +30,9 @@ namespace Scorm.Repositories
 
             var existingInProgress = await Context.ContentAttempts
                 .FirstOrDefaultAsync(x =>
-                    x.UserId == userId &&
-                    x.PackageId == packageId &&
-                    x.Status == Entities.Enums.AttemptStatus.InProgress);
+                    x.UserId == userId
+                    && x.PackageId == packageId
+                    && x.Status == Entities.Enums.AttemptStatus.InProgress);
 
             if (existingInProgress != null)
                 return existingInProgress;

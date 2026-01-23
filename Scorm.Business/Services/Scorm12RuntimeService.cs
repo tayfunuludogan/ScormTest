@@ -90,6 +90,8 @@ namespace Scorm.Business.Services
                 data.TryGetValue("cmi.core.score.raw", out var scoreRawStr);
                 data.TryGetValue("cmi.core.session_time", out var sessionTime);
                 data.TryGetValue("cmi.core.total_time", out var totalTime);
+                data.TryGetValue("cmi.core.score.min", out var scoreMinSrt);
+                data.TryGetValue("cmi.core.score.max", out var scoreMaxStr);
 
                 summary.RawLessonStatus = lessonStatus ?? summary.RawLessonStatus;
                 summary.RawExitMode = exitMode ?? summary.RawExitMode;
@@ -97,11 +99,18 @@ namespace Scorm.Business.Services
                 summary.SessionTime = sessionTime ?? summary.SessionTime;
                 summary.TotalTime = totalTime ?? summary.TotalTime;
 
+
                 if (suspendData != null)
                     summary.SuspendData = suspendData;
 
                 if (decimal.TryParse(scoreRawStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var scoreRaw))
                     summary.ScoreRaw = scoreRaw;
+
+                if (decimal.TryParse(scoreMinSrt, NumberStyles.Any, CultureInfo.InvariantCulture, out var scoreMin))
+                    summary.ScoreMin = scoreMin;
+
+                if (decimal.TryParse(scoreMaxStr, NumberStyles.Any, CultureInfo.InvariantCulture, out var scoreMax))
+                    summary.ScoreMax = scoreMax;
 
                 summary.LastCommitAt = now;
 
