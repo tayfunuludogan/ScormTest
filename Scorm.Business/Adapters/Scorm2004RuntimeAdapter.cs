@@ -16,7 +16,7 @@ namespace Scorm.Business.Adapters
 
         public LaunchContext BuildLaunchContext(ContentPackage package, ContentAttempt attempt, ScormUserDto user)
         {
-            var launchUrl = $"{package.FolderPath.TrimEnd('/')}/{package.LaunchPath.TrimStart('/')}";
+            var launchUrl = $"{package.FolderPath.TrimEnd('/')}/{package.LaunchPath.TrimStart('/')}?attemptId={attempt.Id}";
 
             var ctx = new LaunchContext
             {

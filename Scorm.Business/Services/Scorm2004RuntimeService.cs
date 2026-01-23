@@ -93,8 +93,8 @@ namespace Scorm.Business.Services
                 data.TryGetValue("cmi.success_status", out var successStatus);
                 data.TryGetValue("cmi.exit", out var exitMode);
                 data.TryGetValue("cmi.suspend_data", out var suspendData);
-
-                data.TryGetValue("cmi.score.raw", out var scoreRawStr);
+				data.TryGetValue("cmi.core.score.raw", out var scoreRawStr);
+				//data.TryGetValue("cmi.score.raw", out var scoreRawStr);
                 data.TryGetValue("cmi.score.min", out var scoreMinStr);
                 data.TryGetValue("cmi.score.max", out var scoreMaxStr);
                 data.TryGetValue("cmi.score.scaled", out var scoreScaledStr);
