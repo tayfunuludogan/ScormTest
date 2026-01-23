@@ -156,10 +156,9 @@ namespace Scorm.Business.Services
                 }
                 // ====== Attempt lifecycle (EKLENDI) ======
 
-                _contentAttemptScormSummaryRepository.Update(summary);
-
                 // Eğer attempt tracking yoksa gerekebilir:
                 _contentAttemptRepository.Update(attempt);
+                _contentAttemptScormSummaryRepository.Update(summary);
 
                 return new SuccessResult();
             }
