@@ -22,6 +22,8 @@ namespace Scorm.Repositories
             services.AddScoped<IContentAttemptRepository, ContentAttemptRepository>();
             services.AddScoped<IContentAttemptScormSummaryRepository, ContentAttemptScormSummaryRepository>();
             services.AddScoped<IScormRuntimeDataRepository, ScormRuntimeDataRepository>();
+            services.AddScoped<IXapiActivityStateRepository, XapiActivityStateRepository>();
+            services.AddScoped<IXapiStatementRepository, XapiStatementRepository>();
 
 
 

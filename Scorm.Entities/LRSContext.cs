@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Scorm.Entities
 {
-    //Learning Record Store(LRS) = A place to store learning records (Öprenme Kayıt Deposu)
+    //Learning Record Store(LRS) = A place to store learning records (Öğrenme Kayıt Deposu)
     public class LRSContext : DbContext
     {
         public LRSContext(DbContextOptions<LRSContext> options)
@@ -33,6 +33,7 @@ namespace Scorm.Entities
 
         // xAPI detail tables
         public DbSet<XapiStatement> XapiStatements => Set<XapiStatement>();
+        public DbSet<XapiActivityState> XapiActivityStates => Set<XapiActivityState>();
 
 
 
@@ -241,6 +242,38 @@ namespace Scorm.Entities
                  .HasForeignKey(x => x.AttemptId)
                  .IsRequired(false);
             });
+
+
+            // =========================
+            // XapiActivityState
+            // =========================
+            modelBuilder.Entity<XapiActivityState>(e =>
+            {
+                e.ToTable("XapiActivityState");
+                e.HasKey(x => x.Id);
+
+                e.Property(x => x.ActivityId).HasMaxLength(500).IsRequired();
+                e.Property(x => x.StateId).HasMaxLength(200).IsRequired();
+
+                e.Property(x => x.AgentHash).HasMaxLength(64).IsRequired();
+                e.Property(x => x.AgentJson).HasColumnType("nvarchar(max)");
+
+                e.Property(x => x.ContentType).HasMaxLength(100);
+                e.Property(x => x.Data).IsRequired();
+
+                e.Property(x => x.ETag).HasMaxLength(80);
+
+                e.HasIndex(x => new { x.AttemptId, x.ActivityId, x.StateId, x.AgentHash, x.Registration })
+                 .IsUnique();
+
+                e.HasIndex(x => new { x.Registration, x.ActivityId, x.StateId, x.AgentHash });
+                e.HasIndex(x => new { x.AttemptId, x.UpdatedAt });
+
+                e.HasOne(x => x.Attempt)
+                 .WithMany() // istersen Attempt içine ICollection<XapiActivityState> ekleyebilirsin
+                 .HasForeignKey(x => x.AttemptId);
+            });
+
 
 
         }

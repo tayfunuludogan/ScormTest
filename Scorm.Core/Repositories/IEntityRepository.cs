@@ -12,7 +12,7 @@ namespace Scorm.Core.Repositories
 {
     public interface IEntityRepository<T>: IQuery<T> where T : class, IEntity, new()
     {
-        T? Get(Expression<Func<T, bool>> predicate);
+        T? Get(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
         IPaginate<T> GetList(Expression<Func<T, bool>>? predicate = null,
                      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                      Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,

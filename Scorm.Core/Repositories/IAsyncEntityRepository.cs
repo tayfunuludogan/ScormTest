@@ -12,7 +12,7 @@ namespace Scorm.Core.Repositories
 {
     public interface IAsyncEntityRepository<T> : IQuery<T> where T : class, IEntity, new()
     {
-        Task<T?> GetAsync(Expression<Func<T, bool>> predicate);
+        Task<T?> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, CancellationToken cancellationToken = default);
         Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
                                 Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                                 Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,

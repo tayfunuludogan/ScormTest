@@ -40,8 +40,10 @@ namespace Scorm.Core.Repositories
             return entity;
         }
 
-        public TEntity? Get(Expression<Func<TEntity, bool>> predicate)
+        public TEntity? Get(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
         {
+            IQueryable<TEntity> queryable = Query();
+            if (include != null) queryable = include(queryable);
             return Context.Set<TEntity>().FirstOrDefault(predicate);
         }
 
@@ -67,9 +69,11 @@ namespace Scorm.Core.Repositories
             return queryable.ToPaginate(index, size);
         }
 
-        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, CancellationToken cancellationToken = default)
         {
-            return await Context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+            IQueryable<TEntity> queryable = Query();
+            if (include != null) queryable = include(queryable);
+            return await queryable.FirstOrDefaultAsync(predicate,cancellationToken);
         }
 
         public async Task<TEntity> AddAsync(TEntity entity)
