@@ -9,7 +9,7 @@ namespace Scorm.Entities
 {
     public class XapiStatement : IEntity
     {
-        public long Id { get; set; }
+        public Guid Id { get; set; }
         public Guid AttemptId { get; set; }         // eşleştirebilirsen doldurursun
 
         public string VerbId { get; set; } = null!;

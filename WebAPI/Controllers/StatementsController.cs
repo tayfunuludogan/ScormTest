@@ -33,6 +33,15 @@ namespace WebAPI.Controllers
             return Ok(ids);
         }
 
+        // PUT: client statementId belirler (idempotent)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromQuery] Guid statementId, [FromBody] JsonElement statement, CancellationToken ct)
+        {
+            await _xapiRuntimeService.StoreWithIdAsync(statementId, statement, ct);
+            return NoContent();
+        }
+
+
 
 
         #region FirstStatementController

@@ -19,7 +19,8 @@ namespace Scorm.Business.Services.Abstract
         #endregion
 
         #region Statement
-        Task<IReadOnlyList<Guid>> StoreAsync(JsonElement payload, CancellationToken ct); 
+        Task<IReadOnlyList<Guid>> StoreAsync(JsonElement payload, CancellationToken ct);
+        Task StoreWithIdAsync(Guid statementId, JsonElement statement, CancellationToken ct);
         #endregion
 
 

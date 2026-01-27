@@ -10,6 +10,7 @@ namespace Scorm.Entities
     public class ContentAttemptXapiSummary : IEntity
     {
         public Guid AttemptId { get; set; }
+
         // Actor özet (opsiyonel ama faydalı)
         public string? ActorMbox { get; set; } // mailto:...
         public string? ActorAccountHomePage { get; set; } //kimliği veren sistem

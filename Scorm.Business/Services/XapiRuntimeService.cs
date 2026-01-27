@@ -207,6 +207,7 @@ namespace Scorm.Business.Services
         }
 
 
+
         public async Task<IReadOnlyList<Guid>> StoreAsync(JsonElement payload, CancellationToken ct)
         {
             var user = await _userRepository.GetCurrentUserAsync();
@@ -227,30 +228,34 @@ namespace Scorm.Business.Services
                 var parsed = XapiStatementParser.Parse(stmtEl, statementId);
 
                 // registration == attemptId bekliyoruz
-                ContentAttempt attempt = null;
+                ContentAttempt? attempt = null;
                 if (parsed.Registration.HasValue)
-                    attempt = await _contentAttemptRepository.GetAsync(x => x.UserId == user.Id && x.Id == parsed.Registration.Value, i => i.Include(c => c.XapiSummary), ct);
-
-
-
-                // Insert raw statement
-                await _xapiStatementRepository.AddAsync(new XapiStatement
                 {
-                    AttemptId = attempt.Id,
-                    VerbId = parsed.VerbId,
-                    ObjectId = parsed.ObjectId,
-                    ActorJson = parsed.ActorJson,
-                    ResultJson = parsed.ResultJson,
-                    ContextJson = parsed.ContextJson,
-                    RawJson = parsed.RawJson,
-                    Timestamp = parsed.TimestampUtc,
-                    StoredAt = DateTime.UtcNow
-                });
-
+                    attempt = await _contentAttemptRepository.GetAsync(x =>
+                    x.UserId == user.Id && x.Id == parsed.Registration
+                    , i => i.Include(c => c.XapiSummary)
+                    , ct);
+                }
 
                 // Project to Attempt + Summary
                 if (attempt != null)
                 {
+
+                    // Insert raw statement
+                    await _xapiStatementRepository.AddAsync(new XapiStatement
+                    {
+                        Id = statementId,
+                        AttemptId = attempt.Id,
+                        VerbId = parsed.VerbId,
+                        ObjectId = parsed.ObjectId,
+                        ActorJson = parsed.ActorJson,
+                        ResultJson = parsed.ResultJson,
+                        ContextJson = parsed.ContextJson,
+                        RawJson = parsed.RawJson,
+                        Timestamp = parsed.TimestampUtc,
+                        StoredAt = DateTime.UtcNow
+                    });
+
                     attempt.LastActivityAt = DateTime.UtcNow;
 
                     attempt.XapiSummary ??= new ContentAttemptXapiSummary { AttemptId = attempt.Id };
@@ -298,13 +303,104 @@ namespace Scorm.Business.Services
                     }
 
                     await _contentAttemptRepository.UpdateAsync(attempt);
-                    
+
                 }
             }
 
-            //await _db.SaveChangesAsync(ct);
             return ids;
         }
+
+        public async Task StoreWithIdAsync(Guid statementId, JsonElement statement, CancellationToken ct)
+        {
+            // Idempotent davranış: varsa tekrar yazma
+
+            var exists = await _xapiStatementRepository.GetAsync(x => x.Id == statementId, null, ct);
+            if (exists != null)
+                return;
+
+            var user = await _userRepository.GetCurrentUserAsync();
+
+            var parsed = XapiStatementParser.Parse(statement, statementId);
+
+            ContentAttempt? attempt = null;
+            if (parsed.Registration.HasValue)
+            {
+                attempt = await _contentAttemptRepository.GetAsync(
+                    x => x.UserId == user.Id && x.Id == parsed.Registration
+                    , x => x.Include(i => i.XapiSummary)
+                    , ct);
+            }
+
+            if (attempt != null)
+            {
+                await _xapiStatementRepository.AddAsync(new XapiStatement
+                {
+                    Id = statementId,
+                    AttemptId = attempt.Id,
+                    VerbId = parsed.VerbId,
+                    ObjectId = parsed.ObjectId,
+                    ActorJson = parsed.ActorJson,
+                    ResultJson = parsed.ResultJson,
+                    ContextJson = parsed.ContextJson,
+                    RawJson = parsed.RawJson,
+                    Timestamp = parsed.TimestampUtc,
+                    StoredAt = DateTime.UtcNow
+                });
+
+                // status / score / summary update
+                attempt.LastActivityAt = DateTime.UtcNow;
+
+                attempt.XapiSummary ??= new ContentAttemptXapiSummary { AttemptId = attempt.Id };
+                var xs = attempt.XapiSummary;
+
+                xs.ActorMbox ??= parsed.ActorMbox;
+                xs.ActorAccountHomePage ??= parsed.ActorAccountHomePage;
+                xs.ActorAccountName ??= parsed.ActorAccountName;
+                xs.LastStatementAt = parsed.TimestampUtc;
+
+                // score normalize
+                if (parsed.ScoreScaled.HasValue)
+                {
+                    xs.ScoreScaled = parsed.ScoreScaled;
+                    attempt.Score = parsed.ScoreScaled.Value * 100m;
+                }
+                else if (parsed.ScoreRaw.HasValue && parsed.ScoreMax.HasValue && parsed.ScoreMax.Value > 0)
+                {
+                    xs.ScoreRaw = parsed.ScoreRaw;
+                    xs.ScoreMax = parsed.ScoreMax;
+                    attempt.Score = (parsed.ScoreRaw.Value / parsed.ScoreMax.Value) * 100m;
+                }
+
+                // status mapping
+                if (XapiVerbs.IsPassed(parsed.VerbId))
+                {
+                    attempt.Status = AttemptStatus.Passed;
+                    attempt.FinishedAt ??= parsed.TimestampUtc;
+                    xs.CompletionVerbId = parsed.VerbId;
+                    xs.CompletionAt ??= parsed.TimestampUtc;
+                }
+                else if (XapiVerbs.IsFailed(parsed.VerbId))
+                {
+                    attempt.Status = AttemptStatus.Failed;
+                    attempt.FinishedAt ??= parsed.TimestampUtc;
+                    xs.CompletionVerbId = parsed.VerbId;
+                    xs.CompletionAt ??= parsed.TimestampUtc;
+                }
+                else if (XapiVerbs.IsCompleted(parsed.VerbId))
+                {
+                    attempt.Status = AttemptStatus.Completed;
+                    attempt.FinishedAt ??= parsed.TimestampUtc;
+                    xs.CompletionVerbId = parsed.VerbId;
+                    xs.CompletionAt ??= parsed.TimestampUtc;
+                }
+
+                await _contentAttemptRepository.UpdateAsync(attempt);
+
+            }
+
+
+        }
+
 
 
 
@@ -339,6 +435,6 @@ namespace Scorm.Business.Services
         }
 
 
-       
+
     }
 }
